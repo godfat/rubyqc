@@ -83,6 +83,7 @@ Here's a quick example using [Bacon][].
 require 'bacon'
 require 'rubyqc'
 
+Bacon.summary_on_exit
 include RubyQC::API
 
 describe Array do
@@ -94,11 +95,18 @@ describe Array do
     end
   end
 end
-
-Bacon.summary_on_exit
 ```
 
 [Bacon]: https://github.com/chneukirchen/bacon
+
+### Define your own generator
+
+Just define `rubyqc` method for your classes or instances. This weird name
+was simply chosen to avoid name conflicting since we don't have [typeclass][]
+in Ruby, and it's quite natural to open and insert new methods into classes
+in Ruby.
+
+[typeclass]: http://learnyouahaskell.com/types-and-typeclasses
 
 ## CONTRIBUTORS:
 
