@@ -13,7 +13,8 @@ by Lin Jen-Shin ([godfat](http://godfat.org))
 RubyQC -- A conceptual [QuickCheck][] library for Ruby.
 
 It's not a faithful port since Hsakell is totally different than Ruby.
-However it's still benefit to use some of the ideas behind QuickCheck.
+However it's still benefit to use some of the ideas behind QuickCheck,
+and we could also use RubyQC for generating arbitrary objects.
 
 [QuickCheck]: http://en.wikipedia.org/wiki/QuickCheck
 
@@ -57,6 +58,14 @@ it and raise our level of confidence about correctness.
 
 [Agda]: http://en.wikipedia.org/wiki/Agda_%28programming_language%29
 [Coq]: http://en.wikipedia.org/wiki/Coq
+
+## DESIGN:
+
+* Testing framework agnostic
+* Therefore RubyQC could be treated as an arbitrary object generator library
+* Think about [combinator][]
+
+[combinator]: http://en.wikipedia.org/wiki/Combinator_library
 
 ## REQUIREMENTS:
 
