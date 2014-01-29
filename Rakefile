@@ -7,8 +7,7 @@ rescue LoadError
 end
 
 Gemgem.init(dir) do |s|
-  require 'muack/version'
-  s.name    = 'muack'
-  s.version = Muack::VERSION
-  %w[].each{ |g| s.add_runtime_dependency(g) }
+  require 'rubyqc/version'
+  s.name    = 'rubyqc'
+  s.version = RubyQC::VERSION
 end
