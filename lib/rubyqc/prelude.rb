@@ -51,22 +51,95 @@ class Proc
   end
 end
 
+class Method
+  def self.rubyqc
+    obj = Class.rubyqc.rubyqc
+    obj.method(obj.methods.sample)
+  end
+end
+
+class UnboundMethod
+  def self.rubyqc
+    klass = Class.rubyqc
+    klass.instance_method(klass.instance_methods.sample)
+  end
+end
+
+# TODO
+class Binding
+  def self.rubyqc
+    binding
+  end
+end
+
+# TODO
 class Symbol
   def self.rubyqc
     String.rubyqc.to_sym
   end
 end
 
-class Class
+class Encoding
   def self.rubyqc
-    klasses = Object.constants.
-      map{ |name| const_get(name) unless name == :Config }.
-      select{ |const| const.kind_of?(Class) &&
-                      ![Class, Data, Encoding].include?(const) }
-
-    RubyQC::API.one_of(*klasses)
+    list.sample
   end
 end
+
+# TODO
+class Dir
+  def self.rubyqc
+    Dir.open(__dir__)
+  end
+end
+
+class File
+  def self.rubyqc
+    File.open(__FILE__)
+  end
+end
+
+class IO
+  def self.rubyqc
+    pipe.sample
+  end
+end
+
+# TODO
+class String
+  def self.rubyqc
+    /.*/.rubyqc
+  end
+end
+
+class Regexp
+  def self.rubyqc
+    new(String.rubyqc)
+  end
+end
+
+class MatchData
+  def self.rubyqc
+    String.rubyqc.match(Regexp.rubyqc)
+  end
+end
+
+class Class
+  def self.rubyqc
+    p Object.constants.map{ |name|
+      unless [:Class, :BasicObject, :Data,
+              :Config, :RubyVM, :TracePoint].include?(name)
+        const_get(name)
+      end
+    }.select{ |const| const.kind_of?(Class) }.sample
+  end
+end
+
+# TODO: why?
+# class Object
+#   def self.rubyqc
+#     Class.rubyqc.rubyqc
+#   end
+# end
 
 class Fixnum
   def self.rubyqc
@@ -76,7 +149,7 @@ end
 
 class Bignum
   def self.rubyqc
-    case rand(2)
+    case (0..1).rubyqc
     when 0
       (RubyQC::BignumMin...RubyQC::FixnumMin).rubyqc
     when 1
@@ -89,7 +162,74 @@ end
 
 class Integer
   def self.rubyqc
-    RubyQC::API.one_of(Bignum, Fixnum).rubyqc
+    [Bignum, Fixnum].sample.rubyqc
+  end
+end
+
+class Complex
+  def self.rubyqc
+    Fixnum.rubyqc + Fixnum.rubyqc.i
+  end
+end
+
+class Rational
+  def self.rubyqc
+    Rational(Fixnum.rubyqc, Fixnum.rubyqc)
+  end
+end
+
+class Range
+  def self.rubyqc
+    new(*[Fixnum.rubyqc, Fixnum.rubyqc].sort)
+  end
+end
+
+class Enumerator
+  def self.rubyqc
+    Array.rubyqc.to_enum
+  end
+end
+
+# TODO
+class Float
+  def self.rubyqc
+    rand
+  end
+end
+
+class Thread::SizedQueue
+  def self.rubyqc
+    new(rand(0..100))
+  end
+end
+
+class Fiber
+  def self.rubyqc
+    new(&Proc.rubyqc)
+  end
+end
+
+class Thread
+  def self.rubyqc
+    new(&Proc.rubyqc)
+  end
+end
+
+class SignalException
+  def self.rubyqc
+    new(rand(0..32))
+  end
+end
+
+class SystemCallError
+  def self.rubyqc
+    new(rand(1..106))
+  end
+end
+
+class Struct
+  def self.rubyqc
+    new(Symbol.rubyqc)
   end
 end
 
@@ -112,5 +252,12 @@ end
 class Range
   def rubyqc
     rand(self.begin..self.end)
+  end
+end
+
+# TODO
+class Regexp
+  def rubyqc
+    'rubyqc...'
   end
 end

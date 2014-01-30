@@ -11,6 +11,12 @@ module Kernel
   end
 end
 
+class Should
+  def self.rubyqc
+    new(Class.rubyqc.rubyqc)
+  end
+end
+
 def verify_generated generated, spec
   if spec.empty?
     generated.should.eq spec
