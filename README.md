@@ -77,7 +77,9 @@ it and raise our level of confidence about correctness.
 
 ## SYNOPSIS:
 
-Here's a quick example using [Bacon][].
+Here's a quick example using [Bacon][]. We check if `Array#sort` has the
+property that the front elements of the result array would be `<=` than
+the rear elements of the result array for all arrays.
 
 ``` ruby
 require 'bacon'
@@ -89,7 +91,7 @@ include RubyQC::API
 describe Array do
   describe 'sort' do
     should 'Any front elements should be <= any rear elements' do
-      check([Fixnum]*100).times(100) do |array|
+      check([Fixnum]*100).times(10) do |array|
         array.sort.each_cons(2).each{ |x, y| x.should <= y }
       end
     end
@@ -98,6 +100,98 @@ end
 ```
 
 [Bacon]: https://github.com/chneukirchen/bacon
+
+Basically, `RubyQC::API.check` would merely take the arguments and
+generate the instances via `rubyqc` method. Here the generated array
+could be viewed as `([Fixnum]*100).rubyqc`, meaning that we want an
+array which contains 100 random instances of Fixnum.
+
+As you can see, here actually `rubyqc` is an instance method of Array,
+and it would recursively call `rubyqc` for all elements of the array,
+and collect the results. Here's the definition of `Array#rubyqc`:
+
+``` ruby
+class Array
+  def rubyqc
+    map(&:rubyqc)
+  end
+end
+```
+
+And `Fixnum.rubyqc` is a Fixnum's singleton method which is defined as
+follows:
+
+``` ruby
+class Fixnum
+  def self.rubyqc
+    rand(RubyQC::FixnumMin..RubyQC::FixnumMax)
+  end
+end
+```
+
+You get the idea. See next section for the list of built-in generators.
+
+### Kernel
+
+The very default generator would simply return the instance itself.
+So if there's no generator defined for a given class or instance, it
+would merely take `self`.
+
+``` ruby
+true.rubyqc # true
+```
+
+### Class
+
+This default generator for classes would simply return a new instance via
+`new` method. This could fail if the `initialize` method for the particular
+class does not take zero argument.
+
+``` ruby
+Object.rubyqc # kind_of?(Object)
+```
+
+### Fixnum, Bignum, and Integer
+
+This would give you a random integer. Fixnum and Bignum would guarantee to
+give you the particular class, whereas Integer would give you either a Fixnum
+or Bignum.
+
+``` ruby
+Fixnum.rubyqc # kind_of?(Fixnum)
+```
+
+### array
+
+We also have instance level generator, which was used in the first example.
+The array instance generator would recursively call `rubyqc` for all elements
+of the array, and collect the results.
+
+``` ruby
+[Fixnum, Fixnum].rubyqc # [kind_of?(Fixnum), kind_of?(Fixnum)]
+```
+
+### hash
+
+This also applies to hashes which would do the same thing as arrays for the
+values, keeping the key.
+
+``` ruby
+{:fixnum => Fixnum}.rubyqc # {:fixnum => kind_of?(Fixnum)}
+```
+
+### range
+
+Fixnum would actually give a very large or very small (negative) number in
+most cases. If you want to have a number with specific range, use a range
+object to specific the range.
+
+``` ruby
+(1..6).rubyqc # within?(1..6)
+```
+
+Granted that this is actually the same as using `rand(1..6)`, but for
+combinators we need to have a unified interface.
 
 ### Define your own generator
 

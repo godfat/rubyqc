@@ -2,15 +2,15 @@
 require 'rubyqc/test'
 
 describe 'kind_of' do
-  [Fixnum, Bignum, Array].each do |klass|
+  [Fixnum, Bignum, Array, Integer].each do |klass|
     should klass.name do
       check(klass){ |obj| obj.should.kind_of(klass) }
     end
   end
 
   [[], [Fixnum], [Fixnum, Array],
-   {}, {:a => 0}, {'b' => 1}, {2 => Fixnum},
-   {nil => [Fixnum]}, {true => {false => [Fixnum]}}
+   {}, {:a => 0}, {'b' => 1}, {2 => Integer},
+   {nil => [Fixnum]}, {true => {false => [Bignum]}}
   ].each do |spec|
 
     should spec.inspect do

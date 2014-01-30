@@ -8,5 +8,9 @@ module RubyQC
     def check *args, &block
       RubyQC::Modifier.new(args, &block)
     end
+
+    def one_of *args
+      args.sample
+    end
   end
 end

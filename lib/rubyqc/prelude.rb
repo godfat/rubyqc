@@ -29,7 +29,7 @@ end
 
 class Fixnum
   def self.rubyqc
-    rand(RubyQC::FixnumMin..RubyQC::FixnumMax)
+    (RubyQC::FixnumMin..RubyQC::FixnumMax).rubyqc
   end
 end
 
@@ -37,12 +37,18 @@ class Bignum
   def self.rubyqc
     case rand(2)
     when 0
-      rand(RubyQC::BignumMin...RubyQC::FixnumMin)
+      (RubyQC::BignumMin...RubyQC::FixnumMin).rubyqc
     when 1
-      rand(RubyQC::FixnumSuc...RubyQC::BignumMax)
+      (RubyQC::FixnumSuc...RubyQC::BignumMax).rubyqc
     else
       raise "huh?"
     end
+  end
+end
+
+class Integer
+  def self.rubyqc
+    RubyQC::API.one_of(Bignum, Fixnum).rubyqc
   end
 end
 
@@ -59,5 +65,11 @@ end
 class Hash
   def rubyqc
     inject({}){ |r, (k, v)| r[k] = v.rubyqc; r }
+  end
+end
+
+class Range
+  def rubyqc
+    rand(self.begin..self.end)
   end
 end
