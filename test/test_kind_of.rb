@@ -2,7 +2,7 @@
 require 'rubyqc/test'
 
 describe 'kind_of' do
-  [Fixnum, Bignum, Array, Integer].each do |klass|
+  [Fixnum, Bignum, Array, Integer, Class].each do |klass|
     should klass.name do
       check(klass){ |obj| obj.should.kind_of(klass) }
     end

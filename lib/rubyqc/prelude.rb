@@ -27,6 +27,47 @@ end
 ### class level implementation
 ###
 
+class NilClass
+  def self.rubyqc
+    nil
+  end
+end
+
+class TrueClass
+  def self.rubyqc
+    true
+  end
+end
+
+class FalseClass
+  def self.rubyqc
+    false
+  end
+end
+
+class Proc
+  def self.rubyqc
+    lambda{ Class.rubyqc.rubyqc }
+  end
+end
+
+class Symbol
+  def self.rubyqc
+    String.rubyqc.to_sym
+  end
+end
+
+class Class
+  def self.rubyqc
+    klasses = Object.constants.
+      map{ |name| const_get(name) unless name == :Config }.
+      select{ |const| const.kind_of?(Class) &&
+                      ![Class, Data, Encoding].include?(const) }
+
+    RubyQC::API.one_of(*klasses)
+  end
+end
+
 class Fixnum
   def self.rubyqc
     (RubyQC::FixnumMin..RubyQC::FixnumMax).rubyqc

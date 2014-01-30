@@ -64,6 +64,7 @@ it and raise our level of confidence about correctness.
 * Testing framework agnostic
 * Therefore RubyQC could be treated as an arbitrary object generator library
 * Think about [combinator][]
+* Self hosted (Test RubyQC with RubyQC!)
 
 [combinator]: http://en.wikipedia.org/wiki/Combinator_library
 
