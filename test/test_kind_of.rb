@@ -10,7 +10,8 @@ describe 'kind_of' do
 
   [[], [Fixnum], [Fixnum, Array],
    {}, {:a => 0}, {'b' => 1}, {2 => Fixnum},
-   {nil => [Fixnum]}].each do |spec|
+   {nil => [Fixnum]}, {true => {false => [Fixnum]}}
+  ].each do |spec|
 
     should spec.inspect do
       check(spec) do |generated|
