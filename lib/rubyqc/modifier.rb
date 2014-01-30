@@ -3,7 +3,7 @@ module RubyQC
   class Modifier
     def initialize args, &block
       @args = args
-      @t = 1
+      @t = 10
       go(&block)
     end
 
