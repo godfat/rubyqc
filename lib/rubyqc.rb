@@ -5,8 +5,8 @@ require 'rubyqc/modifier'
 module RubyQC
   module API
     module_function
-    def check *args
-      RubyQC::Modifier.new(args)
+    def check *args, &block
+      RubyQC::Modifier.new(args, &block)
     end
   end
 end
