@@ -1,8 +1,5 @@
 
-require 'bacon'
-require 'rubyqc'
-
-include RubyQC::API
+require 'rubyqc/test'
 
 describe Array do
   describe 'sort' do
