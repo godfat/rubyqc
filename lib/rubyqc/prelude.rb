@@ -7,6 +7,10 @@ module RubyQC
   BignumMin = FixnumMin * 10
 end
 
+###
+### default implementation
+###
+
 module Kernel
   def rubyqc
     self
@@ -19,11 +23,9 @@ class Class
   end
 end
 
-class Array
-  def rubyqc
-    map(&:rubyqc)
-  end
-end
+###
+### class level implementation
+###
 
 class Fixnum
   def self.rubyqc
@@ -41,5 +43,15 @@ class Bignum
     else
       raise "huh?"
     end
+  end
+end
+
+###
+### instance level implementation
+###
+
+class Array
+  def rubyqc
+    map(&:rubyqc)
   end
 end
