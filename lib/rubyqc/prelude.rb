@@ -55,3 +55,9 @@ class Array
     map(&:rubyqc)
   end
 end
+
+class Hash
+  def rubyqc
+    inject({}){ |r, (k, v)| r[k] = v.rubyqc; r }
+  end
+end

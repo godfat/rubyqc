@@ -8,12 +8,13 @@ describe 'kind_of' do
     end
   end
 
-  [[Fixnum], [Fixnum, Array]].each do |array|
-    should array.inspect do
-      check(array) do |a|
-        a.zip(array).each do |(instance, expected)|
-          instance.should.kind_of(expected)
-        end
+  [[], [Fixnum], [Fixnum, Array],
+   {}, {:a => 0}, {'b' => 1}, {2 => Fixnum},
+   {nil => [Fixnum]}].each do |spec|
+
+    should spec.inspect do
+      check(spec) do |generated|
+        verify_generated(generated, spec)
       end
     end
   end
