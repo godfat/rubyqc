@@ -1,5 +1,5 @@
 
-require 'rubyqc/kernel'
+require 'rubyqc/prelude'
 require 'rubyqc/modifier'
 
 module RubyQC
