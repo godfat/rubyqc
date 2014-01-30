@@ -2,20 +2,19 @@
 module RubyQC
   class Modifier
     def initialize args, &block
-      @args = args
-      @t = 10
-      go(&block)
+      @args  = args
+      @times = 10
+      run(&block)
     end
 
     def times t, &block
-      @t = t
-      go(&block)
+      @times = t
+      run(&block)
     end
 
-    private
-    def go
-      @t.times{
-        yield(*@args.map{ |a| a.rubyqc })
+    def run
+      @times.times{
+        yield(*@args.map(&:rubyqc))
       } if block_given?
     end
   end
