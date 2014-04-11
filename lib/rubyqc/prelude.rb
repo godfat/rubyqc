@@ -83,15 +83,16 @@ class Encoding
   end
 end
 
-# TODO
 class Dir
   def self.rubyqc
-    Dir.open(__dir__)
+    Dir.open(File.dirname($LOADED_FEATURES.sample))
   end
 end
 
 class File
   def self.rubyqc
+    File.open($LOADED_FEATURES.sample)
+  rescue Errno::ENOENT # e.g. thread.rb, enumerator.so
     File.open(__FILE__)
   end
 end
