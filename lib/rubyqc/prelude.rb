@@ -20,6 +20,10 @@ end
 class Class
   def rubyqc
     new
+  rescue => e
+    p e
+    p self
+    raise
   end
 end
 
