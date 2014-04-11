@@ -65,7 +65,6 @@ class UnboundMethod
   end
 end
 
-# TODO
 class Binding
   def self.rubyqc
     binding
