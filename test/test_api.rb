@@ -7,7 +7,13 @@ describe RubyQC::API do
     check([Class]*5) do |klasses|
       klasses -= [Should] # bacon's Should won't work...
       check(one_of(*klasses)) do |obj|
-        klasses.find{ |klass| obj.kind_of?(klass) }.should.not.nil
+        begin
+          klasses.find{ |klass| obj.kind_of?(klass) }.should.not.nil
+        rescue => e
+          p e
+          p obj
+          p klasses
+        end
       end
     end
   end
