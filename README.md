@@ -203,6 +203,10 @@ in Ruby.
 
 [typeclass]: http://learnyouahaskell.com/types-and-typeclasses
 
+### Implementation reference
+
+[QuickCheck.hs](http://www.cse.chalmers.se/~rjmh/QuickCheck/QuickCheck.hs)
+
 ## CONTRIBUTORS:
 
 * Lin Jen-Shin (@godfat)
