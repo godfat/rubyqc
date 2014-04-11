@@ -199,7 +199,7 @@ end
 
 class Thread::SizedQueue
   def self.rubyqc
-    new(rand(0..100))
+    new(rand(1..100))
   end
 end
 
