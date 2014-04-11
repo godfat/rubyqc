@@ -71,10 +71,9 @@ class Binding
   end
 end
 
-# TODO
 class Symbol
   def self.rubyqc
-    String.rubyqc.to_sym
+    all_symbols.sample
   end
 end
 
