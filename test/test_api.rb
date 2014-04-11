@@ -1,5 +1,6 @@
 
 require 'rubyqc/test'
+require 'rubyqc/stringio'
 
 describe RubyQC::API do
   should 'one_of' do
