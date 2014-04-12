@@ -10,9 +10,8 @@ describe RubyQC::API do
         begin
           klasses.find{ |klass| obj.kind_of?(klass) }.should.not.nil
         rescue => e
-          p e
-          p obj
-          p klasses
+          warn "Cannot find #{obj} in #{klasses}: #{e}"
+          raise
         end
       end
     end

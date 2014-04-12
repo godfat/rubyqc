@@ -21,8 +21,7 @@ class Class
   def rubyqc
     new
   rescue => e
-    p e
-    p self
+    warn "Cannot new #{self}: #{e}"
     raise
   end
 end
