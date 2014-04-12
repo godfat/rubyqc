@@ -199,12 +199,6 @@ class Float
   end
 end
 
-class Thread::SizedQueue
-  def self.rubyqc
-    new(rand(1..100))
-  end
-end
-
 class Fiber
   def self.rubyqc
     new(&Proc.rubyqc)
@@ -214,6 +208,12 @@ end
 class Thread
   def self.rubyqc
     new(&Proc.rubyqc)
+  end
+end
+
+class SizedQueue
+  def self.rubyqc
+    new(rand(1..100))
   end
 end
 
