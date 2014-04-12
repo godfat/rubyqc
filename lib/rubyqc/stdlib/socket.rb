@@ -30,7 +30,7 @@ class UNIXServer
     require 'tempfile'
     tmp  = Tempfile.new('sock')
     path = tmp.path
-    tmp.unlink
+    tmp.close!
     new(path)
   end
 end
