@@ -128,8 +128,9 @@ end
 class Class
   def self.rubyqc
     Object.constants.map{ |name|
-      unless [:BasicObject, :Class, :Config, :Data,
-              :RubyVM, :Struct, :TracePoint].include?(name) && name !~ /Java/
+      if ![:BasicObject, :Class, :Config, :Data,
+           :RubyVM, :Struct, :TracePoint].include?(name) &&
+         name !~ /Java/
         const_get(name)
       end
     }.select{ |const| const.kind_of?(Class) }.sample
