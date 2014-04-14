@@ -3,10 +3,10 @@ require 'rubyqc/test'
 require 'rubyqc/all'
 
 describe RubyQC::API do
-  should 'one_of' do
+  should 'oneof' do
     check([Class]*5) do |klasses|
       klasses -= [Should] # bacon's Should won't work...
-      check(one_of(*klasses)) do |obj|
+      check(oneof(*klasses)) do |obj|
         begin
           klasses.find{ |klass| obj.kind_of?(klass) }.should.not.nil
         rescue => e

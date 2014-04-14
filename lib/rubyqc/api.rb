@@ -8,13 +8,27 @@ module RubyQC
       RubyQC::Modifier.new(args, &block)
     end
 
-    class OneOf < Struct.new(:args)
+    class SomeOf < Struct.new(:num, :args)
       def rubyqc
-        args.sample.rubyqc
+        args.sample(num).rubyqc
       end
     end
 
-    def one_of *args
+    class OneOf < SomeOf
+      def initialize args
+        super(1, args)
+      end
+
+      def rubyqc
+        super.first
+      end
+    end
+
+    def someof num, *args
+      SomeOf.new(num, args)
+    end
+
+    def oneof *args
       OneOf.new(args)
     end
   end
