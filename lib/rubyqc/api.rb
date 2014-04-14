@@ -8,6 +8,12 @@ module RubyQC
       RubyQC::Modifier.new(args, &block)
     end
 
+    def forall *args, &block
+      args[0].product(*args[1..-1]).each do |val|
+        yield(*val)
+      end
+    end
+
     class SomeOf < Struct.new(:num, :args)
       def rubyqc
         args.sample(num).rubyqc
