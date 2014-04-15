@@ -5,7 +5,7 @@ class Addrinfo
   def self.rubyqc
     Socket.ip_address_list.sample
   end
-end
+end if Object.const_defined?(:Addrinfo) # rubinius does not have this class
 
 class Socket
   def self.rubyqc
