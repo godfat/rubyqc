@@ -14,6 +14,10 @@ module RubyQC
       end
     end
 
+    def booleans
+      [true, false]
+    end
+
     class SomeOf < Struct.new(:num, :args)
       def rubyqc
         args.sample(num).rubyqc

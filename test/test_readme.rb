@@ -15,7 +15,7 @@ describe Hash do
   describe 'compare_by_identity' do
     should 'Treat diff str with the same contents diff when set' do
       str = 'str'
-      forall([true, false], [str, 'str'], [str, 'omg']) do |flag, a, b|
+      forall(booleans, [str, 'str'], [str, 'omg']) do |flag, a, b|
         h = {}
         h.compare_by_identity if flag
         h[a] = h[b] = true
