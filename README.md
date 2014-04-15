@@ -78,6 +78,8 @@ it and raise our level of confidence about correctness.
 
 ## SYNOPSIS:
 
+### RubyQC::API.check
+
 Here's a quick example using [Bacon][]. We check if `Array#sort` has the
 property that the front elements of the result array would be `<=` than
 the rear elements of the result array for all arrays.
@@ -130,9 +132,13 @@ class Fixnum
 end
 ```
 
-You get the idea. Other than `check`, we also have `forall` which would
-iterate through all the possible choices in case you would simply like to
-test all combinations. Here's an example for checking compare_by_identity:
+You get the idea.
+
+### RubyQC::API.forall
+
+Other than `check`, we also have `forall` which would iterate through all the
+possible choices in case you would simply like to test all combinations.
+Here's an example for checking compare_by_identity:
 
 ``` ruby
 describe Hash do
@@ -155,7 +161,7 @@ describe Hash do
 end
 ```
 
-### Kernel
+### Kernel generator
 
 The very default generator would simply return the instance itself.
 So if there's no generator defined for a given class or instance, it
@@ -165,7 +171,7 @@ would merely take `self`.
 true.rubyqc # true
 ```
 
-### Class
+### Class generator
 
 This default generator for classes would simply return a new instance via
 `new` method. This could fail if the `initialize` method for the particular
@@ -175,7 +181,7 @@ class does not take zero argument.
 Object.rubyqc # kind_of?(Object)
 ```
 
-### Fixnum, Bignum, and Integer
+### Fixnum, Bignum, and Integer generator
 
 This would give you a random integer. Fixnum and Bignum would guarantee to
 give you the particular class, whereas Integer would give you either a Fixnum
@@ -185,7 +191,7 @@ or Bignum.
 Fixnum.rubyqc # kind_of?(Fixnum)
 ```
 
-### array
+### array generator
 
 We also have instance level generator, which was used in the first example.
 The array instance generator would recursively call `rubyqc` for all elements
@@ -195,7 +201,7 @@ of the array, and collect the results.
 [Fixnum, Fixnum].rubyqc # [kind_of?(Fixnum), kind_of?(Fixnum)]
 ```
 
-### hash
+### hash generator
 
 This also applies to hashes which would do the same thing as arrays for the
 values, keeping the key.
@@ -204,7 +210,7 @@ values, keeping the key.
 {:fixnum => Fixnum}.rubyqc # {:fixnum => kind_of?(Fixnum)}
 ```
 
-### range
+### range generator
 
 Fixnum would actually give a very large or very small (negative) number in
 most cases. If you want to have a number with specific range, use a range
