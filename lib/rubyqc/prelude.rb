@@ -132,8 +132,8 @@ end
 
 class Class
   def self.rubyqc
-    Object.constants.map{ |name|
-      if ![:BasicObject, :Class, :Config, :Data,
+    Object.constants.map{ |name|                 # rbx      # jruby
+      if ![:BasicObject, :Class, :Config, :Data, :Autoload, :Continuation,
            :RubyVM, :Struct, :TracePoint].include?(name) &&
          name !~ /Java/
         const_get(name)
