@@ -29,3 +29,19 @@ describe Hash do
     end
   end
 end
+
+class User < Struct.new(:id, :name)
+  def self.rubyqc
+    new(Fixnum.rubyqc, String.rubyqc)
+  end
+end
+
+describe 'User.rubyqc' do
+  should 'Generate random users' do
+    check(User) do |user|
+      user     .should.kind_of User
+      user.id  .should.kind_of Fixnum
+      user.name.should.kind_of String
+    end
+  end
+end

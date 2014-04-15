@@ -228,7 +228,25 @@ combinators we need to have a unified interface.
 Just define `rubyqc` method for your classes or instances. This weird name
 was simply chosen to avoid name conflicting since we don't have [typeclass][]
 in Ruby, and it's quite natural to open and insert new methods into classes
-in Ruby.
+in Ruby. Here's a quick example:
+
+``` ruby
+class User < Struct.new(:id, :name)
+  def self.rubyqc
+    new(Fixnum.rubyqc, String.rubyqc)
+  end
+end
+
+describe 'User.rubyqc' do
+  should 'Generate random users' do
+    check(User) do |user|
+      user     .should.kind_of User
+      user.id  .should.kind_of Fixnum
+      user.name.should.kind_of String
+    end
+  end
+end
+```
 
 [typeclass]: http://learnyouahaskell.com/types-and-typeclasses
 
