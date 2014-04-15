@@ -7,8 +7,3 @@ rvm:
   - ruby
   - rbx
   - jruby
-
-matrix:
-  allow_failures:
-    - rvm: rbx
-    - rvm: jruby
