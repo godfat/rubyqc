@@ -130,7 +130,30 @@ class Fixnum
 end
 ```
 
-You get the idea. See next section for the list of built-in generators.
+You get the idea. Other than `check`, we also have `forall` which would
+iterate through all the possible choices in case you would simply like to
+test all combinations. Here's an example for checking compare_by_identity:
+
+``` ruby
+describe Hash do
+  describe 'compare_by_identity' do
+    should 'Treat diff str with the same contents diff when set' do
+      str = 'str'
+      forall([true, false], [str, 'str'], [str, 'str']) do |flag, a, b|
+        h = {}
+        h.compare_by_identity if flag
+        h[a] = h[b] = true
+
+        if (flag && a.object_id != b.object_id) || a != b
+          h.size.should == 2
+        else
+          h.size.should == 1
+        end
+      end
+    end
+  end
+end
+```
 
 ### Kernel
 
