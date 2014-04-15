@@ -6,6 +6,8 @@ require 'weakref'
 # to provide the exact same implementation here.
 class WeakRef
   def self.rubyqc
-    new(Class.rubyqc.rubyqc)
+    # Since Rubinius use BasicObject to implement WeakRef, it can't see
+    # Object::Class but ::Class.
+    new(::Class.rubyqc.rubyqc)
   end
 end
