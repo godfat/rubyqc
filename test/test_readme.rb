@@ -13,9 +13,9 @@ end
 
 describe Hash do
   describe 'compare_by_identity' do
-    should 'Treat diff str with the same contents diff when set' do
-      str = 'str'
-      forall(booleans, [str, 'str'], [str, 'omg']) do |flag, a, b|
+    should 'Treat diff arr with the same contents diff when set' do
+      arr = [0]
+      forall(booleans, [arr, [0]], [arr, [1]]) do |flag, a, b|
         h = {}
         h.compare_by_identity if flag
         h[a] = h[b] = true
