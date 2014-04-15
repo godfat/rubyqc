@@ -1,6 +1,11 @@
 
 module RubyQC
-  FixnumMax = 2 ** (0.size * 8 - 2) - 1
+  big = 2 ** (0.size * 8 - 2)
+  FixnumMax = if big.kind_of?(Bignum)
+                big - 1
+              else # probably jruby...
+                2 ** (0.size * 8 - 1) - 1
+              end
   FixnumMin = - FixnumMax - 1
   FixnumSuc = FixnumMax + 1
   BignumMax = FixnumMax * 10
