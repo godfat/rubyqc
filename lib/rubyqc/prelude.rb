@@ -225,7 +225,7 @@ end
 
 class SignalException
   def self.rubyqc
-    new(rand(0..32))
+    new(rand(0..31))
   end
 end
 
