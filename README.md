@@ -89,7 +89,7 @@ require 'bacon'
 require 'rubyqc'
 
 Bacon.summary_on_exit
-include RubyQC::API
+Bacon::Context.__send__(:include, RubyQC::API)
 
 describe Array do
   describe 'sort' do

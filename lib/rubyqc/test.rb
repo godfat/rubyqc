@@ -3,7 +3,7 @@ require 'bacon'
 require 'rubyqc'
 
 Bacon.summary_on_exit
-include RubyQC::API
+Bacon::Context.__send__(:include, RubyQC::API)
 
 module Kernel
   def eq? rhs
