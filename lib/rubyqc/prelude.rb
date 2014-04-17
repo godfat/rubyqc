@@ -263,6 +263,12 @@ class Range
   end
 end
 
+class Proc
+  def rubyqc
+    call
+  end
+end
+
 # TODO
 class Regexp
   def rubyqc
