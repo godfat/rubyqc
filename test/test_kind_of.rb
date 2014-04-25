@@ -14,7 +14,7 @@ describe 'kind_of' do
   ].each do |spec|
 
     should spec.inspect do
-      check(spec).parallels(4) do |generated|
+      check(spec) do |generated|
         verify_generated(generated, spec)
       end
     end
