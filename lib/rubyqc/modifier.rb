@@ -32,6 +32,7 @@ module RubyQC
         } + [Thread.new{ run_thread(cases % threads, &block) }]
         ts.each(&:join)
       end
+      self
     end
 
     def run_thread t
