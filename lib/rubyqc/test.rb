@@ -5,6 +5,8 @@ require 'rubyqc'
 Bacon.summary_on_exit
 Bacon::Context.__send__(:include, RubyQC::API)
 
+RubyQC.default_parallels = 4
+
 module Kernel
   def eq? rhs
     self == rhs
