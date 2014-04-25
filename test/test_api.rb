@@ -17,6 +17,17 @@ describe RubyQC::API do
     end
   end
 
+  should 'someof' do
+    check(2..5, 6..10) do |n, m|
+      check([Fixnum]*m) do |numbers|
+        check(someof(n, *numbers)) do |nums|
+          nums.size.should.eq n
+          nums.should.all?{ |nn| numbers.should.include nn }
+        end
+      end
+    end
+  end
+
   describe 'forall' do
     should 'hard code' do
       times = 0
