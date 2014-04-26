@@ -27,11 +27,17 @@ module RubyQC
       if threads == 1
         run_thread(cases, &block)
       else
-        ts = threads.times.map{
+        ts = (threads - 1).times.map{
           Thread.new do
             run_thread(cases / threads, &block)
           end
-        } + [Thread.new{ run_thread(cases % threads, &block) }]
+        }
+        mod = cases % threads
+        ts << if mod == 0
+          Thread.new{ run_thread(cases / threads, &block) }
+        else
+          Thread.new{ run_thread(cases % threads, &block) }
+        end
         ts.each(&:join)
       end
       self
