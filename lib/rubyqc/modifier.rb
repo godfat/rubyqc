@@ -22,9 +22,9 @@ module RubyQC
 
     private
     def run &block
-      return self unless block_given?
-
-      if threads == 1
+      if !block_given?
+        # waiting for block to be given
+      elsif threads == 1
         run_thread(cases, &block)
       else
         divided = cases / threads
@@ -35,6 +35,7 @@ module RubyQC
         } + [Thread.new{ run_thread(divided + mod, &block) }]
         ts.each(&:join)
       end
+
       self
     end
 
