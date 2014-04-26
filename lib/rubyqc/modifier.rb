@@ -1,8 +1,10 @@
 
+require 'rubyqc/error'
+
 module RubyQC
-  class Modifier < Struct.new(:args, :cases, :threads)
+  class Modifier < Struct.new(:args, :errors, :cases, :threads)
     def initialize args, &block
-      super(args, RubyQC.default_times, RubyQC.default_parallels)
+      super(args, [], RubyQC.default_times, RubyQC.default_parallels)
       run(&block)
     end
 
@@ -21,6 +23,10 @@ module RubyQC
     end
 
     private
+    def mutex
+      @mutex ||= Mutex.new
+    end
+
     def run &block
       if !block_given?
         # waiting for block to be given
@@ -34,6 +40,8 @@ module RubyQC
           Thread.new{ run_thread(divided, &block) }
         } + [Thread.new{ run_thread(divided + mod, &block) }]
         ts.each(&:join)
+
+        raise Error.new(cases, errors) unless errors.empty?
       end
 
       self
@@ -41,8 +49,17 @@ module RubyQC
 
     def run_thread t
       t.times{
-        yield(*args.map(&:rubyqc))
-      } if block_given?
+        if Thread.current == Thread.main
+          # we raise errors immediately if we're not running in parallels
+          yield(*args.map(&:rubyqc))
+        else
+          begin
+            yield(*args.map(&:rubyqc))
+          rescue Exception => e
+            mutex.synchronize{ errors << e }
+          end
+        end
+      }
     end
   end
 end
