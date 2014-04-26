@@ -48,7 +48,7 @@ module RubyQC
     end
 
     def run_thread t
-      t.times{
+      t.times do
         if Thread.current == Thread.main
           # we raise errors immediately if we're not running in parallels
           yield(*args.map(&:rubyqc))
@@ -59,7 +59,7 @@ module RubyQC
             mutex.synchronize{ errors << e }
           end
         end
-      }
+      end
     end
   end
 end
