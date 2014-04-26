@@ -44,7 +44,7 @@ describe RubyQC::Modifier do
         check(1..parallels) do |errors|
           t = -1
           begin
-            check.parallels(parallels) do
+            check.times(10).parallels(parallels) do
               t += 1
               raise t.to_s if t < errors
             end
