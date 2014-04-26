@@ -22,6 +22,8 @@ module RubyQC
 
     private
     def run &block
+      return self unless block_given?
+
       if threads == 1
         run_thread(cases, &block)
       else
