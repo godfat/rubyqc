@@ -43,10 +43,13 @@ describe RubyQC::Modifier do
       check(4..8) do |parallels|
         check(1..parallels) do |errors|
           t = -1
+          m = Mutex.new
           begin
             check.times(10).parallels(parallels) do
-              t += 1
-              raise t.to_s if t < errors
+              m.synchronize do
+                t += 1
+                raise t.to_s if t < errors
+              end
             end
           rescue RubyQC::Error => e
             e.times      .should.eq RubyQC.default_times
