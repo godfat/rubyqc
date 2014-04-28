@@ -5,7 +5,8 @@ describe RubyQC::Modifier do
   should 'times' do
     check(2..10) do |times|
       t = 0
-      check.times(times){ t += 1 }
+      m = Mutex.new
+      check.times(times){ m.synchronize{ t += 1 } }
       t.should.eq times
     end
   end
