@@ -1,24 +1,11 @@
 
-require 'bacon'
+require 'pork/auto'
 require 'muack'
 require 'rubyqc'
 
-Bacon.summary_on_exit
-Bacon::Context.__send__(:include, RubyQC::API, Muack::API)
+Pork::Executor.__send__(:include, RubyQC::API, Muack::API)
 
 RubyQC.default_parallels = 4
-
-module Kernel
-  def eq? rhs
-    self == rhs
-  end
-end
-
-class Should
-  def self.rubyqc
-    new(Class.rubyqc.rubyqc)
-  end
-end
 
 def verify_generated generated, spec
   if spec.empty?
@@ -63,8 +50,8 @@ end
 
 def verify_other generated, spec
   if spec.kind_of?(Class)
-    generated.should.kind_of spec
+    generated.should.kind_of? spec
   else
-    generated.should.eq      spec
+    generated.should.eq       spec
   end
 end

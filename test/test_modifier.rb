@@ -2,7 +2,7 @@
 require 'rubyqc/test'
 
 describe RubyQC::Modifier do
-  should 'times' do
+  would 'times' do
     check(2..10) do |times|
       t = 0
       m = Mutex.new
@@ -12,7 +12,7 @@ describe RubyQC::Modifier do
   end
 
   describe 'parallels' do
-    should 'have correct times' do
+    would 'have correct times' do
       check(5..11, 2..4).parallels(1) do |times, parallels|
         mutex = Mutex.new
         array = []
@@ -27,7 +27,7 @@ describe RubyQC::Modifier do
       end
     end
 
-    should 'raise error immediately if not running in parallels' do
+    would 'raise error immediately if not running in parallels' do
       begin
         t = -1
         check.times(10).parallels(1) do
@@ -40,7 +40,7 @@ describe RubyQC::Modifier do
       end
     end
 
-    should 'capture errors and report if we are running in parallels' do
+    would 'capture errors and report if we are running in parallels' do
       check(4..8) do |parallels|
         check(1..parallels) do |errors|
           t = -1

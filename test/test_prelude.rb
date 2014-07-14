@@ -2,7 +2,7 @@
 require 'rubyqc/test'
 
 describe 'prelude' do
-  should 'lambda' do
+  would 'lambda' do
     i = 0
     k = 0
     check(lambda{ i += 1 }).parallels(1) do |j|
@@ -14,8 +14,8 @@ describe 'prelude' do
 
   describe 'kind_of' do
     [Fixnum, Bignum, Array, Integer, Class].each do |klass|
-      should klass.name do
-        check(klass){ |obj| obj.should.kind_of(klass) }
+      would klass.name do
+        check(klass){ |obj| obj.should.kind_of?(klass) }
       end
     end
 
@@ -24,7 +24,7 @@ describe 'prelude' do
      {nil => [Fixnum]}, {true => {false => [Bignum]}}
     ].each do |spec|
 
-      should spec.inspect do
+      would spec.inspect do
         check(spec) do |generated|
           verify_generated(generated, spec)
         end

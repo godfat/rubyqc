@@ -80,20 +80,19 @@ it and raise our level of confidence about correctness.
 
 ### RubyQC::API.check
 
-Here's a quick example using [Bacon][]. We check if `Array#sort` has the
+Here's a quick example using [Pork][]. We check if `Array#sort` has the
 property that the front elements of the result array would be `<=` than
 the rear elements of the result array for all arrays.
 
 ``` ruby
-require 'bacon'
+require 'pork/auto'
 require 'rubyqc'
 
-Bacon.summary_on_exit
-Bacon::Context.__send__(:include, RubyQC::API)
+include RubyQC::API
 
 describe Array do
   describe 'sort' do
-    should 'Any front elements should be <= any rear elements' do
+    would 'Any front elements should be <= any rear elements' do
       check([Fixnum]*100).times(10) do |array|
         array.sort.each_cons(2).each{ |x, y| x.should <= y }
       end
@@ -102,7 +101,7 @@ describe Array do
 end
 ```
 
-[Bacon]: https://github.com/chneukirchen/bacon
+[Pork]: https://github.com/godfat/pork
 
 Basically, `RubyQC::API.check` would merely take the arguments and
 generate the instances via `rubyqc` method. Here the generated array
@@ -143,7 +142,7 @@ Here's an example for checking compare_by_identity:
 ``` ruby
 describe Hash do
   describe 'compare_by_identity' do
-    should 'Treat diff arr with the same contents diff when set' do
+    would 'Treat diff arr with the same contents diff when set' do
       arr = [0]
       forall(booleans, [arr, [0]], [arr, [1]]) do |flag, a, b|
         h = {}
@@ -238,11 +237,11 @@ class User < Struct.new(:id, :name)
 end
 
 describe 'User.rubyqc' do
-  should 'Generate random users' do
+  would 'Generate random users' do
     check(User) do |user|
-      user     .should.kind_of User
-      user.id  .should.kind_of Fixnum
-      user.name.should.kind_of String
+      user     .should.kind_of? User
+      user.id  .should.kind_of? Fixnum
+      user.name.should.kind_of? String
     end
   end
 end
