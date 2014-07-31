@@ -6,7 +6,7 @@ describe RubyQC::API do
   would 'oneof' do
     check([Class]*5) do |klasses|
       # klasses -= [Pork::Should] # bacon's Should won't work...
-      check(oneof(*klasses)) do |obj|
+      check(oneof(klasses)) do |obj|
         begin
           klasses.find{ |klass| obj.kind_of?(klass) }.should.not.nil?
         rescue => e
@@ -20,7 +20,7 @@ describe RubyQC::API do
   would 'someof' do
     check(2..5, 6..10) do |n, m|
       check([Fixnum]*m) do |numbers|
-        check(someof(n, *numbers)) do |nums|
+        check(someof(n, numbers)) do |nums|
           nums.size.should.eq n
           nums.should.all?{ |nn| numbers.should.include? nn }
         end

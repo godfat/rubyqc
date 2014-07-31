@@ -34,11 +34,11 @@ module RubyQC
       end
     end
 
-    def someof num, *args
+    def someof num, args
       SomeOf.new(num, args)
     end
 
-    def oneof *args
+    def oneof args
       OneOf.new(args)
     end
   end
