@@ -3,6 +3,10 @@ require 'pork/auto'
 require 'muack'
 require 'rubyqc'
 
+# enough of NameError: method `old_init' not defined in SortedSet
+require 'set'
+Set.new
+
 Pork::Executor.__send__(:include, RubyQC::API, Muack::API)
 
 RubyQC.default_parallels = 4
