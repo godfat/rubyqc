@@ -4,7 +4,7 @@ require 'rubyqc/error'
 module RubyQC
   class Modifier < Struct.new(:args, :errors, :cases, :threads)
     def initialize args, &block
-      super(args, [], RubyQC.default_times, RubyQC.default_parallels)
+      super(args, [], RubyQC.default_times, RubyQC.default_parallel)
       run(&block)
     end
 
@@ -15,7 +15,7 @@ module RubyQC
       run(&block)
     end
 
-    def parallels t, &block
+    def parallel t, &block
       raise ArgumentError.new(
         "Must have at least 1 thread, but got: #{t}") if t <= 0
       self.threads = t

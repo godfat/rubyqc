@@ -11,14 +11,14 @@ describe RubyQC::Modifier do
     end
   end
 
-  describe 'parallels' do
+  describe 'parallel' do
     would 'have correct times' do
-      check(5..11, 2..4).parallels(1) do |times, parallels|
+      check(5..11, 2..4).parallel(1) do |times, parallel|
         mutex = Mutex.new
         array = []
-        mock(Thread).new.times(parallels)
+        mock(Thread).new.times(parallel)
 
-        check.times(times).parallels(parallels) do
+        check.times(times).parallel(parallel) do
           mutex.synchronize{ array << true }
         end
 
@@ -30,7 +30,7 @@ describe RubyQC::Modifier do
     would 'raise error immediately if not running in parallels' do
       begin
         t = -1
-        check.times(10).parallels(1) do
+        check.times(10).parallel(1) do
           t += 1
           raise 'boom'
         end
@@ -41,12 +41,12 @@ describe RubyQC::Modifier do
     end
 
     would 'capture errors and report if we are running in parallels' do
-      check(4..8) do |parallels|
-        check(1..parallels) do |errors|
+      check(4..8) do |parallel|
+        check(1..parallel) do |errors|
           t = -1
           m = Mutex.new
           begin
-            check.times(10).parallels(parallels) do
+            check.times(10).parallel(parallel) do
               m.synchronize do
                 t += 1
                 raise t.to_s if t < errors

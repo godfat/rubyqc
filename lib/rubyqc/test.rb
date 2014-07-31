@@ -9,7 +9,7 @@ Set.new
 
 Pork::Executor.__send__(:include, RubyQC::API, Muack::API)
 
-RubyQC.default_parallels = 4
+RubyQC.default_parallel = 4
 
 def verify_generated generated, spec
   if spec.empty?
