@@ -1,6 +1,6 @@
 # CHANGES
 
-## RubyQC 0.0.3 -- 2014-07-30
+## RubyQC 0.0.3 -- 2014-08-01
 
 * Introduce Modifier#parallel to run in parallel.
 * Introduce Proc#rubyqc.
