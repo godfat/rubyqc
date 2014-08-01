@@ -8,4 +8,3 @@ rvm:
   - jruby
 
 script: 'ruby -r bundler/setup -S rake test'
-sudo: false
