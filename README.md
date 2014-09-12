@@ -7,6 +7,7 @@ by Lin Jen-Shin ([godfat](http://godfat.org))
 * [github](https://github.com/godfat/rubyqc)
 * [rubygems](https://rubygems.org/gems/rubyqc)
 * [rdoc](http://rdoc.info/github/godfat/rubyqc)
+* [slide](http://www.godfat.org/slide/2014-04-25-rubyqc/)
 
 ## DESCRIPTION:
 
