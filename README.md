@@ -1,4 +1,4 @@
-# RubyQC [![Build Status](https://secure.travis-ci.org/godfat/rubyqc.png?branch=master)](http://travis-ci.org/godfat/rubyqc)
+# RubyQC [![Build Status](https://secure.travis-ci.org/godfat/rubyqc.png?branch=master)](http://travis-ci.org/godfat/rubyqc) [![Coverage Status](https://coveralls.io/repos/godfat/rubyqc/badge.png)](https://coveralls.io/r/godfat/rubyqc)
 
 by Lin Jen-Shin ([godfat](http://godfat.org))
 
