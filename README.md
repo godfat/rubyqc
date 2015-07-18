@@ -1,4 +1,4 @@
-# RubyQC [![Build Status](https://secure.travis-ci.org/godfat/rubyqc.png?branch=master)](http://travis-ci.org/godfat/rubyqc) [![Coverage Status](https://coveralls.io/repos/godfat/rubyqc/badge.png)](https://coveralls.io/r/godfat/rubyqc)
+# RubyQC [![Build Status](https://secure.travis-ci.org/godfat/rubyqc.png?branch=master)](http://travis-ci.org/godfat/rubyqc) [![Coverage Status](https://coveralls.io/repos/godfat/rubyqc/badge.png)](https://coveralls.io/r/godfat/rubyqc) [![Join the chat at https://gitter.im/godfat/rubyqc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/godfat/rubyqc)
 
 by Lin Jen-Shin ([godfat](http://godfat.org))
 
@@ -262,7 +262,7 @@ end
 
 Apache License 2.0
 
-Copyright (c) 2014, Lin Jen-Shin (godfat)
+Copyright (c) 2014-2015, Lin Jen-Shin (godfat)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
