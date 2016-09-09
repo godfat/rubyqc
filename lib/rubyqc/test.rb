@@ -7,7 +7,7 @@ require 'rubyqc'
 require 'set'
 Set.new
 
-Pork::Executor.__send__(:include, RubyQC::API, Muack::API)
+Pork::Suite.include(RubyQC::API, Muack::API)
 
 RubyQC.default_parallel = 4
 
