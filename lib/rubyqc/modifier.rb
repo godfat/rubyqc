@@ -2,7 +2,7 @@
 require 'rubyqc/error'
 
 module RubyQC
-  Modifier = Struct.new(:args, :errors, :cases, :threads) do
+  class Modifier < Struct.new(:args, :errors, :cases, :threads)
     def initialize args, &block
       super(args, [], RubyQC.default_times, RubyQC.default_parallel)
       run(&block)
