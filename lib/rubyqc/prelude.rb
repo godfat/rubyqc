@@ -124,13 +124,9 @@ end
 
 class Class
   def self.rubyqc
-    Object.constants.map{ |name|                 # rubinius # jruby
-      if ![:BasicObject, :Class, :Config, :Data, :Autoload, :Continuation,
-           :RubyVM, :Struct, :WeakRef, :TracePoint].include?(name) &&
-         name !~ /Java/
-        const_get(name)
-      end
-    }.select{ |const| const.kind_of?(Class) }.sample
+    [NilClass, TrueClass, FalseClass,
+     Integer, Float, Array, Hash, String,
+     Regexp, Symbol].sample
   end
 end
 
