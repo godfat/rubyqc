@@ -19,7 +19,7 @@ describe RubyQC::API do
 
   would 'someof' do
     check(2..5, 6..10) do |n, m|
-      check([Fixnum]*m) do |numbers|
+      check([Integer]*m) do |numbers|
         check(someof(n, numbers)) do |nums|
           nums.size.should.eq n
           nums.should.all?{ |nn| numbers.should.include? nn }
@@ -41,7 +41,9 @@ describe RubyQC::API do
     end
 
     would 'check' do
-      check([Fixnum, Fixnum], [Fixnum, Fixnum], [Fixnum, Fixnum]) do |a, b, c|
+      check([Integer, Integer],
+            [Integer, Integer],
+            [Integer, Integer]) do |a, b, c|
         times = 0
         forall(a, b, c) do |aa, bb, cc|
           times += 1
@@ -55,7 +57,7 @@ describe RubyQC::API do
 
     would 'check check' do
       check(1..5, 1..5) do |n, m|
-        check([[Fixnum]*n.abs]*m.abs) do |a|
+        check([[Integer]*n.abs]*m.abs) do |a|
           times = 0
           forall(*a) do |*aa|
             times += 1

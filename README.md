@@ -95,7 +95,7 @@ include RubyQC::API
 describe Array do
   describe 'sort' do
     would 'Any front elements should be <= any rear elements' do
-      check([Fixnum]*100).times(10) do |array|
+      check([Integer]*100).times(10) do |array|
         array.sort.each_cons(2).each{ |x, y| x.should <= y }
       end
     end
@@ -107,8 +107,8 @@ end
 
 Basically, `RubyQC::API.check` would merely take the arguments and
 generate the instances via `rubyqc` method. Here the generated array
-could be viewed as `([Fixnum]*100).rubyqc`, meaning that we want an
-array which contains 100 random instances of Fixnum.
+could be viewed as `([Integer]*100).rubyqc`, meaning that we want an
+array which contains 100 random instances of Integer.
 
 As you can see, here actually `rubyqc` is an instance method of Array,
 and it would recursively call `rubyqc` for all elements of the array,
@@ -122,13 +122,13 @@ class Array
 end
 ```
 
-And `Fixnum.rubyqc` is a Fixnum's singleton method which is defined as
+And `Integer.rubyqc` is a Integer's singleton method which is defined as
 follows:
 
 ``` ruby
-class Fixnum
+class Integer
   def self.rubyqc
-    rand(RubyQC::FixnumMin..RubyQC::FixnumMax)
+    rand(RubyQC::IntegerMin..RubyQC::IntegerMax)
   end
 end
 ```
@@ -182,38 +182,36 @@ class does not take zero argument.
 Object.rubyqc # kind_of?(Object)
 ```
 
-### Fixnum, Bignum, and Integer generator
+### Integer generator
 
-This would give you a random integer. Fixnum and Bignum would guarantee to
-give you the particular class, whereas Integer would give you either a Fixnum
-or Bignum.
+This would give you a random integer.
 
 ``` ruby
-Fixnum.rubyqc # kind_of?(Fixnum)
+Integer.rubyqc # kind_of?(Integer)
 ```
 
-### array generator
+### Array generator
 
 We also have instance level generator, which was used in the first example.
 The array instance generator would recursively call `rubyqc` for all elements
 of the array, and collect the results.
 
 ``` ruby
-[Fixnum, Fixnum].rubyqc # [kind_of?(Fixnum), kind_of?(Fixnum)]
+[Integer, Integer].rubyqc # [kind_of?(Integer), kind_of?(Integer)]
 ```
 
-### hash generator
+### Hash generator
 
 This also applies to hashes which would do the same thing as arrays for the
 values, keeping the key.
 
 ``` ruby
-{:fixnum => Fixnum}.rubyqc # {:fixnum => kind_of?(Fixnum)}
+{:integer => Integer}.rubyqc # {:integer => kind_of?(Integer)}
 ```
 
-### range generator
+### Range generator
 
-Fixnum would actually give a very large or very small (negative) number in
+Integer would actually give a very large or very small (negative) number in
 most cases. If you want to have a number with specific range, use a range
 object to specific the range.
 
@@ -234,7 +232,7 @@ in Ruby. Here's a quick example:
 ``` ruby
 class User < Struct.new(:id, :name)
   def self.rubyqc
-    new(Fixnum.rubyqc, String.rubyqc)
+    new(Integer.rubyqc, String.rubyqc)
   end
 end
 
@@ -242,7 +240,7 @@ describe 'User.rubyqc' do
   would 'Generate random users' do
     check(User) do |user|
       user     .should.kind_of? User
-      user.id  .should.kind_of? Fixnum
+      user.id  .should.kind_of? Integer
       user.name.should.kind_of? String
     end
   end
@@ -263,7 +261,7 @@ end
 
 Apache License 2.0
 
-Copyright (c) 2014-2016, Lin Jen-Shin (godfat)
+Copyright (c) 2014-2017, Lin Jen-Shin (godfat)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

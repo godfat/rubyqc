@@ -13,15 +13,15 @@ describe 'prelude' do
   end
 
   describe 'kind_of' do
-    [Fixnum, Bignum, Array, Integer, Class].each do |klass|
+    [Array, Integer, Class].each do |klass|
       would klass.name do
         check(klass){ |obj| obj.should.kind_of?(klass) }
       end
     end
 
-    [[], [Fixnum], [Fixnum, Array],
+    [[], [Integer], [Integer, Array],
      {}, {:a => 0}, {'b' => 1}, {2 => Integer},
-     {nil => [Fixnum]}, {true => {false => [Bignum]}}
+     {nil => [Integer]}, {true => {false => [Integer]}}
     ].each do |spec|
 
       would spec.inspect do

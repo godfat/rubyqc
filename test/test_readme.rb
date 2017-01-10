@@ -4,7 +4,7 @@ require 'rubyqc/test'
 describe Array do
   describe 'sort' do
     would 'Any front elements should be <= any rear elements' do
-      check([Fixnum]*100).times(10) do |array|
+      check([Integer]*100).times(10) do |array|
         array.sort.each_cons(2).each{ |x, y| x.should <= y }
       end
     end
@@ -32,7 +32,7 @@ end
 
 class User < Struct.new(:id, :name)
   def self.rubyqc
-    new(Fixnum.rubyqc, String.rubyqc)
+    new(Integer.rubyqc, String.rubyqc)
   end
 end
 
@@ -40,7 +40,7 @@ describe 'User.rubyqc' do
   would 'Generate random users' do
     check(User) do |user|
       user     .should.kind_of? User
-      user.id  .should.kind_of? Fixnum
+      user.id  .should.kind_of? Integer
       user.name.should.kind_of? String
     end
   end

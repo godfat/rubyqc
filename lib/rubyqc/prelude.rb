@@ -1,15 +1,7 @@
 
 module RubyQC
-  big = 2 ** (0.size * 8 - 2)
-  FixnumMax = if big.kind_of?(Bignum)
-                big - 1
-              else # probably jruby...
-                2 ** (0.size * 8 - 1) - 1
-              end
-  FixnumMin = - FixnumMax - 1
-  FixnumSuc = FixnumMax + 1
-  BignumMax = FixnumMax * 10
-  BignumMin = FixnumMin * 10
+  IntegerMax = 2 ** (0.size * 8 - 1) - 1
+  IntegerMin = - IntegerMax - 1
 end
 
 ###
@@ -149,46 +141,27 @@ end
 #   end
 # end
 
-class Fixnum
-  def self.rubyqc
-    (RubyQC::FixnumMin..RubyQC::FixnumMax).rubyqc
-  end
-end
-
-class Bignum
-  def self.rubyqc
-    case (0..1).rubyqc
-    when 0
-      (RubyQC::BignumMin...RubyQC::FixnumMin).rubyqc
-    when 1
-      (RubyQC::FixnumSuc...RubyQC::BignumMax).rubyqc
-    else
-      raise "huh?"
-    end
-  end
-end
-
 class Integer
   def self.rubyqc
-    [Bignum, Fixnum].sample.rubyqc
+    (RubyQC::IntegerMin..RubyQC::IntegerMax).rubyqc
   end
 end
 
 class Complex
   def self.rubyqc
-    Fixnum.rubyqc + Fixnum.rubyqc.i
+    Integer.rubyqc + Integer.rubyqc.i
   end
 end
 
 class Rational
   def self.rubyqc
-    Rational(Fixnum.rubyqc, Fixnum.rubyqc)
+    Rational(Integer.rubyqc, Integer.rubyqc)
   end
 end
 
 class Range
   def self.rubyqc
-    new(*[Fixnum.rubyqc, Fixnum.rubyqc].sort)
+    new(*[Integer.rubyqc, Integer.rubyqc].sort)
   end
 end
 
