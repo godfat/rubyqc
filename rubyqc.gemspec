@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Lin Jen-Shin (godfat)".freeze]
-  s.date = "2017-01-10"
+  s.date = "2018-12-26"
   s.description = "RubyQC -- A conceptual [QuickCheck][] library for Ruby.\n\nIt's not a faithful port since Hsakell is totally different than Ruby.\nHowever it's still benefit to use some of the ideas behind QuickCheck,\nand we could also use RubyQC for generating arbitrary objects.\n\n[QuickCheck]: http://en.wikipedia.org/wiki/QuickCheck".freeze
   s.email = ["godfat (XD) godfat.org".freeze]
   s.files = [
@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   "test/test_readme.rb".freeze]
   s.homepage = "https://github.com/godfat/rubyqc".freeze
   s.licenses = ["Apache License 2.0".freeze]
-  s.rubygems_version = "2.6.8".freeze
+  s.rubygems_version = "3.0.1".freeze
   s.summary = "RubyQC -- A conceptual [QuickCheck][] library for Ruby.".freeze
   s.test_files = [
   "test/test_api.rb".freeze,
